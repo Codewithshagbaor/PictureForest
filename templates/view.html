@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{post.caption |truncatewords:10}} - SnapShots</title>
+  <!-- Reuse the CSS code from the homepage -->
+  <style>
+    /* Add some styling for the body and menu bar */
+        body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #eee;
+    }
+    .menu {
+      background-color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      font-size: 20px;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+    .menu a:hover {
+      text-decoration: underline;
+    }
+    /* Add some styling for the full image view */
+    .full-image-view {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
+    /* Make the image display in the middle of the page */
+    .full-image-view img {
+      width: auto;
+      height: 80%;
+      max-width: 90%;
+      max-height: 90%;
+    }
+    /* Add some styling for the caption and username */
+    .full-image-view .caption {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+    }
+    .full-image-view .username {
+      display: inline-block;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+        /* Add some styling for the floating icon */
+    .github-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #333;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease-in-out;
+    }
+    .github-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .github-icon img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Add a menu bar with a login and upload button -->
+  <div class="menu">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'create_post' %}">Upload</a>
+    <a href="{% url 'logout-view' %}">Logout({{request.user}})</a>
+    {% else %}
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'create_post' %}">Login</a>
+    <a href="{% url 'create_post' %}">Upload</a>
+    {% endif %}
+  </div>
+  <!-- Add a container for the full image view -->
+  <div class="full-image-view" style="text-align: center;">
+    <img src="{{post.image.url}}" alt="image">
+    <div class="caption">
+      <span class="username">{{post.user.username}}</span><br>
+      {{post.caption}}
+    </div>
+  </div>
+  <!-- Add a floating icon for your GitHub profile -->
+<a href="https://github.com/Codewithshagbaor" target="_blank" class="github-icon">
+  <img src="https://avatars.githubusercontent.com/u/67190277?v=4" alt="GitHub Icon">
+</a>
+
+</body>
+</html>

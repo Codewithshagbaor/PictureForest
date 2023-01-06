@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup - SnapShots </title>
+  <!-- Reuse the CSS code from the homepage and full image view page -->
+  <style>
+    /* Add some styling for the body and menu bar */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #eee;
+    }
+    .menu {
+      background-color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      font-size: 20px;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+    .menu a:hover {
+      text-decoration: underline;
+    }
+    /* Add some styling for the login form */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 90vh;
+    }
+    .login-form form {
+      width: 400px;
+      margin: 20px;
+      padding: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .login-form form label,
+    .login-form form input,
+    .login-form form button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    .login-form form input {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .login-form form button {
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .login-form form button:hover {
+      background-color: #555;
+    }
+      /* Add some styling for the floating icon */
+    .github-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #333;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease-in-out;
+    }
+    .github-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .github-icon img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Add a menu bar with a login and upload button -->
+  <div class="menu">
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'create_post' %}">Login</a>
+    <a href="{% url 'create_post' %}">Upload</a>
+  </div>
+    <!-- Add an image grid -->
+    {% if messages %}
+    <!-- Display the alert box at the bottom of the page, but off the screen -->
+    <div class="alert-box" style="position: fixed; bottom: -100%; right: 10px; background-color: #333; color: white; padding: 20px; border-radius: 5px; transition: bottom 0.5s;">
+      <!-- Iterate through the messages and display each one in the alert box -->
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+      <!-- Add a progress bar to the alert box -->
+      <div class="progress">
+        <div class="progress-bar" style="width: 100%;"></div>
+      </div>
+    </div>
+    <!-- Use JavaScript to slide the alert box up from the bottom of the page and close it after a certain amount of time -->
+    <script>
+      // Get the alert box element
+      var alertBox = document.querySelector('.alert-box');
+      // Get the progress bar element
+      var progressBar = document.querySelector('.progress-bar');
+      // Set the width of the progress bar to 0
+      progressBar.style.width = '0%';
+      // Update the width of the progress bar every 10 milliseconds
+      var interval = setInterval(function() {
+        var width = progressBar.style.width;
+        // Stop updating the width of the progress bar when it reaches 0
+        if (width === '0%') {
+          clearInterval(interval);
+        } else {
+          progressBar.style.width = (parseInt(width) - 1) + '%';
+        }
+      }, 10);
+      // Slide the alert box up from the bottom of the page
+      alertBox.style.bottom = '10px';
+      // Close the alert box after 5 seconds
+      window.setTimeout(function() {
+        alertBox.style.bottom = '-100%';
+      }, 5000);
+    </script>
+  {% endif %}
+  <!-- Add a container for the login form -->
+  <div class="login-form">
+    <form form method="POST" action="">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" name="username" placeholder="Username">
+      <label for="email">Email:</label>
+      <input type="text" name="email" placeholder="Email">
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="" placeholder="********">
+      <label for="password">Password:</label>
+      <input type="password"  name="password2" placeholder="Comfirm Password">
+      <button type="submit">Create an Account</button>
+      <p style="text-align: center;">Have an account? <a href="{% url 'login-view' %}" style="text-decoration: none;">Login</a></p>
+    </form>
+  </div>
+  <!-- Add a floating icon for your GitHub profile -->
+<a href="https://github.com/Codewithshagbaor" target="_blank" class="github-icon">
+  <img src="https://avatars.githubusercontent.com/u/67190277?v=4" alt="GitHub Icon">
+</a>
+
+</body>
+</html>
