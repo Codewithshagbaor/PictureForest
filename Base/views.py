@@ -108,3 +108,13 @@ def View_Post(request, uid):
     'post': post
   }
   return render(request, 'view.html', context)
+
+def view_user(request, username):
+  user = get_object_or_404(User, username=username)
+  user_post = user.post_set.all()
+
+  context = {
+    'user': user,
+    'user_post':user_post
+  }
+  return render(request, 'profile.html', context)
