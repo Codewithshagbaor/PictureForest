@@ -64,6 +64,7 @@ def logoutView(request):
   logout(request)
   return redirect('index')
 
+@login_required(login_url='/login/')
 def complete_reg(request):
   if request.user.is_complete:
     return redirect('index')
