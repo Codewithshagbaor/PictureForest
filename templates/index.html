@@ -166,7 +166,7 @@
     <div class="image-container">
       <img src="{{post.image.url}}" alt="image1">
       <div class="caption">
-        <span class="username">{{post.user.username}}</span>
+        <a href="{% url 'view_user' post.user.username %}" style="text-decoration: none; color: white; "><span class="username">{{post.user.username}}</span></a>
         {{post.caption}}
       </div>
   </a>
