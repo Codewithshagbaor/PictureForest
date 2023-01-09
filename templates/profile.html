@@ -223,7 +223,7 @@
   <div class="image-grid">
     {% for image in user_post reversed %}
     <div class="image-container">
-      <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+     <a href="{% url 'view_post' image.uid %}"> <img src="{{ image.image.url }}" alt="{{ image.caption }}"></a>
       <div class="caption">
         <a href="{% url 'view_user' image.user.username %}" style="text-decoration: none; color: white; "><span class="username">{{ image.user.username }}</span></a> {{ image.caption }}
       </div>
